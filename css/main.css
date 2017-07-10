@@ -1,0 +1,57 @@
+
+
+body{
+	background: black;
+}
+
+h1{
+	margin: auto;
+	background: white;
+	font-size: 5em;
+	font-weight: 200;
+	cursor: pointer;
+	border-radius: 2px;
+	text-align: center;
+	width: 5em;
+}
+
+#start{
+	margin-top:5%;
+}
+#stop{
+	margin-top: 5%;
+}
+
+#time{
+	font-size: 5em;
+	margin-top: 5%;
+	visibility: hidden;
+	background: black;
+	color: red;
+	font-weight: 100;
+}
+
+#userInput{
+	display: inline-flex;
+	margin: 0;
+	
+}
+
+#title{
+	color: white;
+	font-weight: 200;
+	font-style: italic;
+	font-size: 2em;
+	margin: 0;
+}
+
+#keywords{
+	width: 50%;
+	height: 5%;
+	margin-top: 1%;
+	margin-left:4%;
+}
+
+body input[type="text"]{
+	font-size: 1.5em;
+}
