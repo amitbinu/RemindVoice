@@ -4,7 +4,7 @@ A web application that will push notification to an android phone (if the app is
 
 *The user must install the android application in order to recieve the notification*
 
-*User must log in on both android application and the website*
+*User must log in on both android application (in a phone with active internet) and the website(in a seperate laptop/computer)*
 
 When this web application is launched the user can enter a keyword and click the 'start listening' button. 
 
