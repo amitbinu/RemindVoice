@@ -1,6 +1,6 @@
 
 # RemindVoice
-A web application that will push notification to an android phone (if the app is installed), when a keyword is spoken. 
+A web application that will push notification from a computer to an android phone (if the app is installed), when a keyword is spoken to the computer. 
 
 *The user must install the android application in order to recieve the notification*
 
@@ -11,5 +11,4 @@ When this web application is launched the user can enter a keyword and click the
 The computer will listen for that word or phrase and, when it is said, the web app will push a notification to the user's android phone
 with a message telling the time at which this phrase was fired.
 
-
-
+*Only works in Google Chrome or Safari*
