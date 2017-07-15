@@ -12,3 +12,7 @@ The computer will listen for that word or phrase and, when it is said, the web a
 with a message telling the time at which this phrase was fired.
 
 *Only works in Google Chrome or Safari*
+
+![Alt text]("https://github.com/amitbinu/RemindVoice/blob/master/pictures/home.PNG")
+
+![Alt text]("https://github.com/amitbinu/RemindVoice/blob/master/pictures/listening.PNG")
