@@ -8,10 +8,11 @@ A web application that will push notification from a computer to an android phon
 
 When this web application is launched the user can enter a keyword and click the 'start listening' button. 
 
-The computer will listen for that word or phrase and, when it is said, the web app will push a notification to the user's android phone
+The computer will listen for that word or phrase and, when it is said, the website will push a notification to the user's android phone
 with a message telling the time at which this phrase was fired.
 
-*Only works in Google Chrome or Safari*
+*Only works in Google Chrome and Safari*
+
 ![Alt text](https://github.com/amitbinu/RemindVoice/blob/master/pictures/home.PNG?raw=true "Home Page")
 
 ![Alt text](https://github.com/amitbinu/RemindVoice/blob/master/pictures/listening.PNG?raw=true "Listening Page")
