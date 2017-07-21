@@ -17,4 +17,4 @@ with a message telling the time at which this phrase was fired.
 
 ![Alt text](https://github.com/amitbinu/RemindVoice/blob/master/pictures/listening.PNG?raw=true "Listening Page")
 
-![Alt text](https://github.com/amitbinu/RemindVoice/blob/master/pictures/appPict.png?raw=true "Android App")
+![Alt text](https://github.com/amitbinu/RemindVoice/blob/master/pictures/appPict.png?raw=false "Android App")
