@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Signed in
+	</title>
+</head>
+<body>
+
+<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBDBsx2Qpdw5advp1WE8g-_ZPkVfKr1ISY",
+    authDomain: "remindvoice-d0f6c.firebaseapp.com",
+    databaseURL: "https://remindvoice-d0f6c.firebaseio.com",
+    projectId: "remindvoice-d0f6c",
+    storageBucket: "remindvoice-d0f6c.appspot.com",
+    messagingSenderId: "750689896759"
+  };
+  firebase.initializeApp(config);
+</script>
+
+
+<script>
+ firebase.auth().onAuthStateChanged(function (user){
+ 	if(user){
+ 		console.log(user);
+ 	}
+ 	else{
+ 		console.log("Something went wrong - beans");
+ 	}
+ });
+  
+</script>
+</body>
+</html>
