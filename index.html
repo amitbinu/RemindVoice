@@ -2,63 +2,18 @@
 <html>
 <head>
 	<title>Remind Voice</title>
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<script src="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.js"></script>
-<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.css" />
+	
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.css" />
 
 </head>
 <body>
-<div id="userInput">
-	<h2 id="title">Keywords</h2>
-	<input type="text" name="keywords" id="keywords" required>
-</div>
-	
-	<h1 id="start">Start Listening</h1>
-	<h1 id="time">Listening ...</h1>
-	<h1 id="stop">Stop Listening</h1>
+
 <div id="firebaseui-auth-container"></div>
 <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBDBsx2Qpdw5advp1WE8g-_ZPkVfKr1ISY",
-    authDomain: "remindvoice-d0f6c.firebaseapp.com",
-    databaseURL: "https://remindvoice-d0f6c.firebaseio.com",
-    projectId: "remindvoice-d0f6c",
-    storageBucket: "remindvoice-d0f6c.appspot.com",
-    messagingSenderId: "750689896759"
-  };
-  firebase.initializeApp(config);
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.js"></script>
+<script type="text/javascript" src="js/signIn.js"> </script>
 
-  var bigOne = document.getElementById('bigOne');
-  var dRef = firebase.database().ref().child('text');
-  dRef.on('value', snap => bigOne.innerText = snap.val());
-  
-</script>
-<script type="text/javascript">
-      // FirebaseUI config.
-      var uiConfig = {
-        signInSuccessUrl: 'loggedIn.html',
-        signInOptions: [
-          // Leave the lines as is for the providers you want to offer your users.
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-          firebase.auth.EmailAuthProvider.PROVIDER_ID
-        ],
-        // Terms of service url.
-        tosUrl: 'https://www.google.com'
-      };
-
-      // Initialize the FirebaseUI Widget using Firebase.
-      var ui = new firebaseui.auth.AuthUI(firebase.auth());
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig);
-    </script>
-
-  
-	 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/signIn.js"> </script>
-	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
