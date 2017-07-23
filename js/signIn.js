@@ -1,38 +1,27 @@
-window.onload = function(){
-	start = document.getElementById("start");
-	stop = document.getElementById("stop");
-	time = document.getElementById("time");
-	keywords = document.getElementById("keywords");
-	title = document.getElementById("title");
-
-	start.style.display = "none";
-	stop.style.display = "none";
-	time.style.display = "none";
-	keywords.style.display = "none";
-	title.style.display = "none";
-
-//	signin();
-
-};
+var config = {
+    apiKey: "AIzaSyBDBsx2Qpdw5advp1WE8g-_ZPkVfKr1ISY",
+    authDomain: "remindvoice-d0f6c.firebaseapp.com",
+    databaseURL: "https://remindvoice-d0f6c.firebaseio.com",
+    projectId: "remindvoice-d0f6c",
+    storageBucket: "remindvoice-d0f6c.appspot.com",
+    messagingSenderId: "750689896759"
+  };
+  firebase.initializeApp(config);
 
 
+var uiConfig = {
+        signInSuccessUrl: 'loggedIn.html',
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        tosUrl: 'https://www.google.com'
+      };
 
-var showStuff = function(){
-	start.style.display = "initial";
-	stop.style.display = "initial";
-	time.style.display ="initial";
-	keywords.style.display = "initial";
-	title.style.display = "initial";
-
-	userKeyWord = document.getElementById("keywords")
-	if(start.addEventListener){
-		
-			start.addEventListener("click",checkKeyWord);
-		
-	}
-
-	if(stop.addEventListener){
-		stop.addEventListener("click", stopListening);
-	}
-}
-
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
