@@ -8,32 +8,23 @@
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 	<script type="text/javascript" src="js/signIn.js"> </script>
 	<script>
-	var currentUser;
-	 firebase.auth().onAuthStateChanged(function (user){
-	 	if(user){
-	 		currentUser = user;
-	 		console.log(user);
-	 	}
-	 	else{
-	 		console.log("Something went wrong - beans");
-	 	}
-	 });
+	
 	  </script>
 
 	<script type="text/javascript" src="js/main.js"></script>
 
 
 </head>
-<body>
+<body id="loggedIn">
 
 <div id="userInput">
 	<h2 id="title">Keywords</h2>
 	<input type="text" name="keywords" id="keywords" required>
 </div>
 	
-	<h1 id="start">Start Listening</h1>
-	<h1 id="time">Listening ...</h1>
-	<h1 id="stop">Stop Listening</h1>
+	<h1 class="mainButtons" id="start">Start Listening</h1>
+	<h1 class="mainButtons" id="time">Listening ...</h1>
+	<h1 class="mainButtons" id="stop">Stop Listening</h1>
 	<button id="SignOut">Sign Out</button>
 </body>
 </html>
