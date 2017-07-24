@@ -1,14 +1,39 @@
-
+html{
+	height: 100%;
+}
 
 body{
-	height: 100%;
 	background: #000;
 	background-image:  -webkit-linear-gradient(#000000,#ffffff);
 	background-size: cover;
-
 }
 
-h1{
+#description{
+	width: 90%;
+	border: 1px solid red;
+	margin-left: 5%;
+	margin-top: 6em;
+	background: #000000;
+	background-image: -webkit-linear-gradient(#000000,#414142);
+	color: #ffffff;
+	text-align: center;
+	font-style: italic;
+	font-weight: 100!important;
+	letter-spacing: 1px;
+	border-radius: 0.5em;
+}
+
+#mainTitle{
+	color: #ffffff;
+	text-align: center;
+	font-size: 4em;
+	margin: 0;
+}
+
+#firebaseui-auth-container{
+	margin-top: 6em;
+}
+.mainButtons{
 	margin: auto;
 	background: #ffffff;
 	background-image:  -webkit-linear-gradient(#f7451d,#1d74f7);
