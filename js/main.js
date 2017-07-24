@@ -43,16 +43,23 @@ var checkKeyWord = function(){
 			time.innerHTML = "Listening ...";
 			time.style.fontSize = '4em';
 			time.style.visibility = 'visible';
-			startListening();
+			//startListening();
+			runForEver();
 		}
 };
 
+var runForEver = function(){
+	startListening();
+	run = setInterval(startListening,4000); 
+}
+
 var startListening = function(){
-	var recognition = new webkitSpeechRecognition();
+	recognition = new webkitSpeechRecognition();
 	recognition.continuous = true;
 	recognition.interimResults = true;
-	adddata(userKeyWord.value.toLowerCase().trim()); /* REMOVE THIS. THIS IS ONLY FOR TESTING PURPOSES*/
-	recognition.onresult = function(event) { 
+	//adddata(userKeyWord.value.toLowerCase().trim()); /* REMOVE THIS. THIS IS ONLY FOR TESTING PURPOSES*/
+	recognition.onresult = function(event) {
+		clearInterval(run);
   		for (var i = event.resultIndex;i < event.results.length; ++i) {
   			if(event.results[i].isFinal){
   				var text = event.results[i][0].transcript;
@@ -63,6 +70,10 @@ var startListening = function(){
   					//console.log(userText);
   					//push the notification
   					adddata(userText);
+  					runForEver();
+  				}
+  				else{
+  					runForEver();
   				}
   			}
   		}
@@ -72,9 +83,12 @@ var startListening = function(){
 
 var stopListening = function(){
 	time.style.visibility = 'hidden';
+	clearInterval(run);
+	recognition.stop();
 }
 
 var usersignOut = function(){
+	recognition.stop();
 	firebase.auth().signOut().then(function() {
 		window.location.href  = "index.html";
   console.log('Signed Out');
@@ -90,4 +104,5 @@ var adddata = function(userText){
 	var updates = {};
 	updates['users/' + currentUser.uid + '/info/' + newInfo] = userText;
 	dtb.ref().update(updates);
+	alert("You said " + userText);
 };
