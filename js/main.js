@@ -1,21 +1,19 @@
+var NotificationPermission;
 window.onload = function(){
 	start = document.getElementById("start");
 	stop = document.getElementById("stop");
 	time = document.getElementById("time");
-	signOut = document.getElementById("SignOut")
-	userKeyWord = document.getElementById("keywords")
-	dtb = firebase.database();
-	currentUser = null;
-	 firebase.auth().onAuthStateChanged(function (user){
-	 	if(user){
-	 		currentUser = user;
-	 		console.log(user);
-	 	}
-	 	else{
-	 		console.log("Something went wrong - beans");
-	 		window.location.href = "index.html";
-	 	}
-	 });
+	userKeyWord = document.getElementById("keywords");
+	Notification.requestPermission();
+	run = null;
+	if (! Notification.permission === "granted") {
+		alert("Notifications will be pushed as alert messages like this!");
+		NotificationPermission = false; 
+	}
+	else{
+		NotificationPermission = true;
+	}
+
 	if(start.addEventListener){
 		
 			start.addEventListener("click",checkKeyWord);
@@ -26,9 +24,7 @@ window.onload = function(){
 		stop.addEventListener("click", stopListening);
 	}
 
-	if(signOut.addEventListener){
-		signOut.addEventListener("click", usersignOut);
-	}
+	
 }
 
 var checkKeyWord = function(){
@@ -69,7 +65,13 @@ var startListening = function(){
   				if(text.includes(userText )){
   					//console.log(userText);
   					//push the notification
-  					adddata(userText);
+  					if(NotificationPermission === true){
+  						new Notification("Remind Voice", {body:userText,icon:"./remindVoice.PNG" });
+  					}
+  					else{
+  						alert("You said " + userText);
+  					}
+
   					runForEver();
   				}
   				else{
@@ -87,22 +89,3 @@ var stopListening = function(){
 	recognition.stop();
 }
 
-var usersignOut = function(){
-	recognition.stop();
-	firebase.auth().signOut().then(function() {
-		window.location.href  = "index.html";
-  console.log('Signed Out');
-}, function(error) {
-  console.error('Sign Out Error', error);
-});
-};
-
-var adddata = function(userText){
-	console.log(userText);
-	var newInfo = firebase.database().ref().child('info').push().key;
-	console.log("newInfo : " + newInfo);
-	var updates = {};
-	updates['users/' + currentUser.uid + '/info/' + newInfo] = userText;
-	dtb.ref().update(updates);
-	alert("You said " + userText);
-};
