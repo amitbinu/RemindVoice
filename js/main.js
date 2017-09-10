@@ -6,7 +6,8 @@ window.onload = function(){
 	userKeyWord = document.getElementById("keywords");
 	Notification.requestPermission();
 	run = null;
-	if (! Notification.permission === "granted") {
+	console.log(window.innerWidth);
+	if (! Notification.permission === "granted" || window.innerWidth <= 865) {
 		alert("Notifications will be pushed as alert messages like this!");
 		NotificationPermission = false; 
 	}
@@ -39,8 +40,8 @@ var checkKeyWord = function(){
 			time.innerHTML = "Listening ...";
 			time.style.fontSize = '4em';
 			time.style.visibility = 'visible';
-			//startListening();
-			runForEver();
+			startListening();
+			//runForEver();
 		}
 };
 
@@ -49,15 +50,28 @@ var runForEver = function(){
 	run = setInterval(startListening,4000); 
 }
 
+
 var startListening = function(){
 	recognition = new webkitSpeechRecognition();
 	recognition.continuous = true;
 	recognition.interimResults = true;
+	recognition.maxAlternatives = 1;
+	recognition.stop();
+	recognition.onstart = function(){
+		console.log('started');
+	}
+	recognition.onend = function(){
+		//variables.recoginizing = false;
+		console.log("Ended")
+		recognition.start();
+	}	
 	//adddata(userKeyWord.value.toLowerCase().trim()); /* REMOVE THIS. THIS IS ONLY FOR TESTING PURPOSES*/
 	recognition.onresult = function(event) {
-		clearInterval(run);
+		//clearInterval(run);
   		for (var i = event.resultIndex;i < event.results.length; ++i) {
-  			if(event.results[i].isFinal){
+  			if(! event.results[i].isFinal){
+  				isResultInBuffer = false;
+  				resultInBuffer = "";
   				var text = event.results[i][0].transcript;
   				text = text.toLowerCase().trim();
   				userText = userKeyWord.value.toLowerCase().trim();
@@ -66,17 +80,20 @@ var startListening = function(){
   					//console.log(userText);
   					//push the notification
   					if(NotificationPermission === true){
-  						new Notification("Remind Voice", {body:userText,icon:"./remindVoice.PNG" });
+  						new Notification("Remind Voice", {body:userText,icon:"https://remindvoice-d0f6c.firebaseapp.com/remindVoice.png" });
   					}
   					else{
   						alert("You said " + userText);
   					}
 
-  					runForEver();
+  					//runForEver();
   				}
   				else{
-  					runForEver();
+  					//runForEver();
   				}
+  			}
+  			else{
+  				console.log(event.results[i][0].transcript);
   			}
   		}
 	}
