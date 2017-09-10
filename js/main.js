@@ -1,8 +1,11 @@
 var NotificationPermission;
-window.onload = function(){
+var pushedNotification = false;
+var uerMsg = "";
+$(document).ready(function(){
 	start = document.getElementById("start");
 	stop = document.getElementById("stop");
 	time = document.getElementById("time");
+	$("#userMsg").hide();
 	userKeyWord = document.getElementById("keywords");
 	Notification.requestPermission();
 	run = null;
@@ -23,10 +26,8 @@ window.onload = function(){
 
 	if(stop.addEventListener){
 		stop.addEventListener("click", stopListening);
-	}
-
-	
-}
+	}	
+}) 
 
 var checkKeyWord = function(){
 	if(userKeyWord.value == ""){
@@ -45,11 +46,7 @@ var checkKeyWord = function(){
 		}
 };
 
-var runForEver = function(){
-	startListening();
-	run = setInterval(startListening,4000); 
-}
-
+var runForEver = true;
 
 var startListening = function(){
 	recognition = new webkitSpeechRecognition();
@@ -63,37 +60,48 @@ var startListening = function(){
 	recognition.onend = function(){
 		//variables.recoginizing = false;
 		console.log("Ended")
-		recognition.start();
+		if (runForEver) {
+			recognition.start();
+		}
 	}	
 	//adddata(userKeyWord.value.toLowerCase().trim()); /* REMOVE THIS. THIS IS ONLY FOR TESTING PURPOSES*/
 	recognition.onresult = function(event) {
 		//clearInterval(run);
   		for (var i = event.resultIndex;i < event.results.length; ++i) {
   			if(! event.results[i].isFinal){
-  				isResultInBuffer = false;
-  				resultInBuffer = "";
-  				var text = event.results[i][0].transcript;
+  				$('#userMsg').fadeIn();
+  				$("#userMsg").text("");
+  			  	var text = event.results[i][0].transcript;
+  			  	$("#userMsg").text(text);
   				text = text.toLowerCase().trim();
   				userText = userKeyWord.value.toLowerCase().trim();
   				console.log(text);
-  				if(text.includes(userText )){
+  				if(text.includes(userText ) && ! pushedNotification){
   					//console.log(userText);
   					//push the notification
+  					pushedNotification = true;
   					if(NotificationPermission === true){
   						new Notification("Remind Voice", {body:userText,icon:"https://remindvoice-d0f6c.firebaseapp.com/remindVoice.png" });
   					}
   					else{
   						alert("You said " + userText);
   					}
-
-  					//runForEver();
-  				}
-  				else{
-  					//runForEver();
   				}
   			}
   			else{
+  				$("#userMsg").text(event.results[i][0].transcript);
+  				userMsg = "";
+  				if(event.results[i][0].transcript.includes(userText) && !pushedNotification){
+  					if(NotificationPermission === true){
+  						new Notification("Remind Voice", {body:userText,icon:"https://remindvoice-d0f6c.firebaseapp.com/remindVoice.png" });
+  					}
+  					else{
+  						alert("You said " + userText);
+  					} 
+  				}
   				console.log(event.results[i][0].transcript);
+  				pushedNotification = false;
+  				$('#userMsg').fadeOut(5000);
   			}
   		}
 	}
@@ -103,6 +111,7 @@ var startListening = function(){
 var stopListening = function(){
 	time.style.visibility = 'hidden';
 	clearInterval(run);
+	runForEver = false;
 	recognition.stop();
 }
 
