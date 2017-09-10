@@ -31,8 +31,17 @@ body{
 	margin: 0;
 }
 
-#firebaseui-auth-container{
-	margin-top: 6em;
+#userMsg{
+	color: #ffffff;
+	background: #727272;
+	position: absolute;
+	top: 10%;
+	left: 5px;
+	width: 20%;
+	height: auto;
+	font-size: 2.5rem;
+	padding: 1%;
+	border-radius: 2px;
 }
 .mainButtons{
 	margin: auto;
@@ -68,6 +77,7 @@ body{
 #userInput{
 	display: inline-flex;
 	margin: 0;
+	z-index: 7600;
 	
 }
 
@@ -96,7 +106,7 @@ body input[type="text"]{
 	font-size: 2em;
 	position: absolute;
 	top: 0;
-	width: 100%;
+	right: 0;
 	font-weight: 300;
 	letter-spacing: 1.5px;
 	text-align: center;
@@ -123,6 +133,7 @@ body input[type="text"]{
 		font-size: 4rem;
 		width: 4em;
 		margin-top: 3em;
+		width: auto;
 	}
 
 	#start, #stop{
