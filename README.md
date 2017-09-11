@@ -11,3 +11,5 @@ This project can be found here: [www.remindvoice.com](https://remindvoice-d0f6c.
 #### *Only works in Google Chrome*
 
 ![Alt text](https://github.com/amitbinu/RemindVoice/blob/master/pictures/listening.PNG?raw=true "Listening Page")
+
+![Alt text](https://github.com/amitbinu/RemindVoice/blob/master/pictures/notification.PNG?raw=true "Notification Page")
