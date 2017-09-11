@@ -35,13 +35,22 @@ var checkKeyWord = function(){
 			time.style.fontSize = '3em';
 			time.style.visibility = 'visible';
 			userKeyWord.style.border = '0.09em solid red';
+			$('#keywords').effect("shake");
 		}
 		else{
-			userKeyWord.style.border = '';
-			time.innerHTML = "Listening ...";
-			time.style.fontSize = '4em';
-			time.style.visibility = 'visible';
-			startListening();
+			
+			if (!('webkitSpeechRecognition' in window)){
+				alert("Please use this website in Google Chrome");
+				upgrade();
+			}
+			else{
+				userKeyWord.style.border = '';
+				time.innerHTML = "Listening ...";
+				time.style.fontSize = '4em';
+				time.style.visibility = 'visible';
+				startListening();
+			}
+			
 			//runForEver();
 		}
 };
@@ -49,6 +58,7 @@ var checkKeyWord = function(){
 var runForEver = true;
 
 var startListening = function(){
+	runForEver = true;
 	recognition = new webkitSpeechRecognition();
 	recognition.continuous = true;
 	recognition.interimResults = true;
@@ -67,9 +77,10 @@ var startListening = function(){
 	//adddata(userKeyWord.value.toLowerCase().trim()); /* REMOVE THIS. THIS IS ONLY FOR TESTING PURPOSES*/
 	recognition.onresult = function(event) {
 		//clearInterval(run);
+		console.log('Called on Result');
   		for (var i = event.resultIndex;i < event.results.length; ++i) {
   			if(! event.results[i].isFinal){
-  				$('#userMsg').fadeIn();
+  				$('#userMsg').stop().fadeIn();
   				$("#userMsg").text("");
   			  	var text = event.results[i][0].transcript;
   			  	$("#userMsg").text(text);
@@ -101,7 +112,8 @@ var startListening = function(){
   				}
   				console.log(event.results[i][0].transcript);
   				pushedNotification = false;
-  				$('#userMsg').fadeOut(5000);
+  				$('#userMsg').stop().fadeOut(5000);
+  				recognition.stop();
   			}
   		}
 	}
