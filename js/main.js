@@ -1,6 +1,8 @@
 var NotificationPermission;
 var pushedNotification = false;
 var uerMsg = "";
+var firstTime = true;
+
 $(document).ready(function(){
 	start = document.getElementById("start");
 	stop = document.getElementById("stop");
@@ -50,8 +52,6 @@ var checkKeyWord = function(){
 				time.style.visibility = 'visible';
 				startListening();
 			}
-			
-			//runForEver();
 		}
 };
 
@@ -69,24 +69,36 @@ var startListening = function(){
 	}
 	recognition.onend = function(){
 		//variables.recoginizing = false;
+		$('#userMsg').stop().fadeOut(3000);
+		firstTime = true;
 		console.log("Ended")
 		if (runForEver) {
 			recognition.start();
 		}
 	}	
 	//adddata(userKeyWord.value.toLowerCase().trim()); /* REMOVE THIS. THIS IS ONLY FOR TESTING PURPOSES*/
+
+	recognition.onsoundstart = function(){
+		console.log('Sound detected');
+	}
 	recognition.onresult = function(event) {
 		//clearInterval(run);
-		console.log('Called on Result');
+		if (firstTime===true) {
+			$('#userMsg').stop().fadeIn(2000);
+			firstTime = false;
+		}
+	//	$('#userMsg').hide();
   		for (var i = event.resultIndex;i < event.results.length; ++i) {
+
   			if(! event.results[i].isFinal){
-  				$('#userMsg').stop().fadeIn();
-  				$("#userMsg").text("");
+  				console.log('Called on Result -- if statement');
+  			//	$('#userMsg').stop().fadeIn();
+  				$("#userMsg").text(" ");
   			  	var text = event.results[i][0].transcript;
   			  	$("#userMsg").text(text);
   				text = text.toLowerCase().trim();
   				userText = userKeyWord.value.toLowerCase().trim();
-  				console.log(text);
+  			//	console.log(text);
   				if(text.includes(userText ) && ! pushedNotification){
   					//console.log(userText);
   					//push the notification
@@ -98,10 +110,12 @@ var startListening = function(){
   						alert("You said " + userText);
   					}
   				}
+  				console.log('Finished if statement');
   			}
   			else{
+  				console.log('Called on Result -- else statement');
+  		//		$('#userMsg').fadeIn(2000);
   				$("#userMsg").text(event.results[i][0].transcript);
-  				userMsg = "";
   				if(event.results[i][0].transcript.includes(userText) && !pushedNotification){
   					if(NotificationPermission === true){
   						new Notification("Remind Voice", {body:userText,icon:"https://remindvoice-d0f6c.firebaseapp.com/remindVoice.png" });
@@ -110,9 +124,9 @@ var startListening = function(){
   						alert("You said " + userText);
   					} 
   				}
-  				console.log(event.results[i][0].transcript);
+  			//	console.log(event.results[i][0].transcript);
   				pushedNotification = false;
-  				$('#userMsg').stop().fadeOut(5000);
+  				//$('#userMsg').fadeOut(5000);
   				recognition.stop();
   			}
   		}
